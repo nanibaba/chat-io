@@ -7,8 +7,8 @@ import {
 import ThemeProvider from "@/components/themeProvider.js";
 
 export const metadata = {
-  title: "Prompt Image Generator",
-  description: "An application generating images from text",
+  title: "ChatIO",
+  description: "An application allowing individual and group chats",
 };
 
 export default function RootLayout({ children }) {
