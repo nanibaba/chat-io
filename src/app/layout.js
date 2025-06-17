@@ -8,7 +8,7 @@ import ThemeProvider from "@/components/themeProvider.js";
 
 export const metadata = {
   title: "ChatIO",
-  description: "An application allowing individual and group chats",
+  description: "An application allowing one-on-one and group chats",
 };
 
 export default function RootLayout({ children }) {

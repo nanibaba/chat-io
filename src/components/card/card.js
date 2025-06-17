@@ -1,9 +1,10 @@
 'use client'
 
-import { Card, Text, Button, Group, CardSection, Image } from '@mantine/core';
+import { Card, Text, Button, Group, CardSection } from '@mantine/core';
+import CardImage from './cardImage.js';
 import classes from './styles/card.module.css'; 
 
-export default function StandardCard() {
+export default function StandardCard({image, body}) {
     return (
     <Card classNames={{
             root: classes.root + ' ' + classes.borderedCard
@@ -20,18 +21,18 @@ export default function StandardCard() {
         radius="md" >
         
         <CardSection mb="md">
-            <Image src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-4.png"
-                height={160}
-                alt="Japan"
-            />
+            <CardImage src={image.src} alt={image.alt}/>
         </CardSection>
 
-        <Group mb="lg">
-            <Text fw={900}>Card Title</Text>
+        <Group mb="xs">
+            <Text fw={900}>{body.title}</Text>
         </Group>
 
         <Group mb="lg">
-            <Text size="sm">Card Text</Text>
+            <Text classNames={{root: classes.bodytext}} 
+                size="sm">
+                {body.text}
+            </Text>
         </Group>
 
         <Button style={{
@@ -41,7 +42,7 @@ export default function StandardCard() {
             fw={800}
             fullWidth 
             radius="md">
-            Button Text
+            {body.buttonText}
         </Button>
     </Card>
     )

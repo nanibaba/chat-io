@@ -2,9 +2,16 @@
     border-color: var(--mantine-color-whitesmoke-0);
 }
 
+.bodytext {
+    color: var(--mantine-color-whitesmoke-9);
+}
+
 @media (prefers-color-scheme: dark) {
     .root {
         border-color: var(--mantine-color-whitesmoke-7);
+    }
+    .bodytext {
+        color: var(--mantine-color-whitesmoke-2);
     }
 }
 
