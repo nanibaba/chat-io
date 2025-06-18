@@ -4,7 +4,7 @@ import {
   ColorSchemeScript, 
   mantineHtmlProps
 } from '@mantine/core';
-import ThemeProvider from "@/components/themeProvider.js";
+import ThemeProvider from "@/ui/components/themeProvider.js";
 
 export const metadata = {
   title: "ChatIO",

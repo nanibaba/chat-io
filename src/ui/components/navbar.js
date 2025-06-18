@@ -15,7 +15,7 @@ export default function NavBar() {
           flexWrap: "wrap",
           alignItems: "center"
         }}>
-            <NavigtionLink />
+          <NavigtionLink isIconLink={true} iconName="IconHome2"/>
     </Container> 
     )
 }
