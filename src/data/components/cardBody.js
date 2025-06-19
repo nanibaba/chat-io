@@ -2,6 +2,7 @@ class CardBody {
     #title; 
     #text;
     #buttonText; 
+    #buttonHref; 
 
     constructor(title, text, buttonText) {
         this.#title = title; 
@@ -31,6 +32,14 @@ class CardBody {
 
     set buttonText(buttonText) {
         this.#buttonText = buttonText; 
+    }
+
+    get buttonHref() {
+        return this.#buttonHref
+    }
+
+    set buttonHref(buttonHref) {
+        this.#buttonHref = buttonHref
     }
 }
 

@@ -9,6 +9,7 @@ import StandardCard from '@/ui/components/card/card.js';
 export default function ChatTypesContainer() {
   // Cards content 
   const home_src = '/home'; 
+  const chat_url = '/chat'; 
   const chat_img = new CardImage(`${home_src}/chat.jpg`, 'One-to-one chat image'); 
   const group_chat_img = new CardImage(`${home_src}/group-chat.jpg`, 'Group chat image'); 
   const chatCardText = "A private messaging feature that enables direct, " +
@@ -16,7 +17,9 @@ export default function ChatTypesContainer() {
   const groupChatCardText = "A collaborative messaging space where multiple users can communicate, " + 
     "share updates, and interact in real time within a shared conversation thread."; 
   const chatCardBody = new CardBody("One-To-One Chat", chatCardText, "Start a one-to-one chat now"); 
+  chatCardBody.buttonHref = `${chat_url}/one-to-one`; 
   const groupChatCardBody = new CardBody("Group Chat", groupChatCardText, "Start a group chat now"); 
+  groupChatCardBody.buttonHref = `${chat_url}/group`; 
   
   // Cards 
   const chatCard = new StandardCardModel(chat_img, chatCardBody); 

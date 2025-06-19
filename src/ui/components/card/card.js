@@ -1,7 +1,8 @@
 'use client'
 
-import { Card, Text, Button, Group, CardSection } from '@mantine/core';
+import { Card, CardSection, Group, Text } from '@mantine/core';
 import CardImage from './cardImage.js';
+import CardButton from './cardButton.js';
 import classes from './styles/card.module.css'; 
 
 export default function StandardCard({image, body}) {
@@ -33,16 +34,7 @@ export default function StandardCard({image, body}) {
                 {body.text}
             </Text>
         </Group>
-
-        <Button style={{
-            backgroundColor: 'var(--element-background)',
-            color: 'var(--element-foreground)'
-            }} 
-            fw={800}
-            fullWidth 
-            radius="md">
-            {body.buttonText}
-        </Button>
+        <CardButton text={body.buttonText} href={body.buttonHref}/>
     </Card>
     )
 }
