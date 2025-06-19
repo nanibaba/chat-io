@@ -13,7 +13,6 @@ export default function StandardCard({image, body}) {
             backgroundColor: 'var(--background-secondary)',
             color: 'var(--foreground)'
         }} 
-        maw="40%" 
         w={284}
         h="fit-content" 
         withBorder

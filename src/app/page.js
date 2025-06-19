@@ -3,8 +3,18 @@ import ChatTypesContainer from '@/ui/components/home/chatTypesContainer.js';
 
 export default function Home() {
   return (
-  <Container mx="initial" mt="sm">
-    <Title order={2}>Welcome to the best chat app!</Title>
+  <Container style={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column"
+  }}
+    h={1000} 
+    mt="sm" 
+    fluid >
+      <Title mb="lg" order={2}>
+        Welcome to ChatIO! Please<br></br>choose your preferred chat type:
+      </Title>
     <ChatTypesContainer />
   </Container>
   )

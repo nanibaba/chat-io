@@ -3,7 +3,7 @@
 import CardImage from '@/data/components/cardImage.js';
 import CardBody from '@/data/components/cardBody.js';
 import {default as StandardCardModel} from '@/data/components/card.js';
-import { Container } from '@mantine/core';
+import { Grid, GridCol } from '@mantine/core';
 import StandardCard from '@/ui/components/card/card.js';
 
 export default function ChatTypesContainer() {
@@ -22,12 +22,14 @@ export default function ChatTypesContainer() {
   const chatCard = new StandardCardModel(chat_img, chatCardBody); 
   const groupChatCard = new StandardCardModel(group_chat_img, groupChatCardBody); 
   const cards = [chatCard, groupChatCard]; 
-  
+
   return (
-    <Container mx="initial" >
+    <Grid gutter="xl">
         {cards.map((card, index) => (
-            <StandardCard key={index} image={card.image} body={card.body}/>
+          <GridCol key={index} span="content">
+            <StandardCard image={card.image} body={card.body}/>
+          </GridCol>
         ))}
-    </Container>
+    </Grid>
     )
 }
