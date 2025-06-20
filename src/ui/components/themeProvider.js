@@ -25,7 +25,7 @@ const ThemeProvider = ({ children }) => (
   <MantineProvider theme={theme} defaultColorScheme="auto">
     <div> 
       <NavBar />
-      <Space h={80} />
+      <Space h="var(--navbar-height)" />
       {children}
     </div>   
   </MantineProvider>

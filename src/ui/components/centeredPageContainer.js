@@ -1,14 +1,14 @@
 import { Container } from '@mantine/core';
 
-export default function CenteredPageContainer({ children }) {
+export default function CenteredPageContainer({ children, justifyContent = "center"}) {
     return (
       <Container style={{
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent,
         flexDirection: "column"
       }}
-        h={1000} 
+        h="calc(100vh - var(--navbar-height))" 
         fluid>
             {children}
       </Container>

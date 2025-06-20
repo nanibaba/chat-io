@@ -4,7 +4,7 @@ import NavigtionLink from './navlink.js';
 export default function NavBar() {
     return (
     <Container fluid 
-        h={80} 
+        h="var(--navbar-height)"
         bg="var(--mantine-color-blue-9)"
         pos="fixed"
         top={0}

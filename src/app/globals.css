@@ -6,6 +6,7 @@
   --foreground-secondary: #329be0;
   --element-background: #329be0;
   --element-foreground: #1E2022;
+  --navbar-height: 80px; 
 }
 
 /* Dark theme color palette */
@@ -17,6 +18,7 @@
     --foreground-secondary: #8bf8f4; 
     --element-background: #8bf8f4;
     --element-foreground: #333446;
+    --navbar-height: 80px;
   }
 }
 
