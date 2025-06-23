@@ -1,0 +1,8 @@
+.fade-out-exit {
+  opacity: 100%;
+}
+
+.fade-out-exit-active {
+  opacity: 0%;
+  transition: opacity 280ms;
+}
