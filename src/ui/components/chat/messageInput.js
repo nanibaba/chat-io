@@ -3,20 +3,26 @@
 import { useState } from 'react';
 import SendIcon from './sendIcon.js';
 import { TextInput } from '@mantine/core';
+import MessageInputEventHandler from './messageInputEventHandler.js';
 
 export default function MessageInput({
-    messagedContent,
+    setIsChatActive,
+    setIsTextFaded,
     setMessagedContent, 
-    isChatActive, 
-    setIsChatActive
+    messagedContent,
+    isChatActive
 }) {
     const [message, setMessage] = useState('');
-    const icon = <SendIcon messagedContent={messagedContent}
-        setMessagedContent={setMessagedContent}
-        setMessage={setMessage}
-        message={message} 
-        isChatActive={isChatActive} 
-        setIsChatActive={setIsChatActive}/>
+    const messageInputEventHandler = new MessageInputEventHandler(
+        setIsChatActive,
+        setIsTextFaded,
+        setMessagedContent,
+        setMessage
+    );
+    const icon = <SendIcon message={message} 
+        messageInputEventHandler={messageInputEventHandler}
+        isChatActive={isChatActive}
+        messagedContent={messagedContent} />
     return (
     <TextInput size="lg" 
         w="50rem"
@@ -28,6 +34,12 @@ export default function MessageInput({
         rightSection={icon}
         value={message}
         onChange={(event) => setMessage(event.currentTarget.value)}
+        onKeyDown={(event) => messageInputEventHandler.activateKeyboardEvent(
+            event.key, 
+            isChatActive,
+            messagedContent,
+            message
+        )} 
     />
     )
 }

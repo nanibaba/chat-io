@@ -1,47 +1,10 @@
 import { ActionIcon } from '@mantine/core';
 import { IconSend2 } from '@tabler/icons-react';
 
-function sendMessage(
-    isChatActive, 
-    setIsChatActive, 
-    messagedContent,
-    setMessagedContent,
-    message, 
-    setMessage
-) {
-    setTimeout(() => {
-        // 1. Set chat to active state
-        if (!isChatActive) {
-            setIsChatActive(true); 
-        }
-        // 2. Add sent message to chat scroll
-        setMessagedContent([
-        ...messagedContent,
-        message
-    ]); 
-        // 3. Clear message input
-        setMessage('');
-    }, 280) 
-}
-
-export default function SendIcon({
-    messagedContent,
-    setMessagedContent, 
-    setMessage,
-    message, 
-    isChatActive, 
-    setIsChatActive
-    }) {
+export default function SendIcon({message, messageInputEventHandler, isChatActive, messagedContent}) {
     const disabled = message === '' || message === null
     return (
-    <ActionIcon onClick={() => sendMessage( 
-        isChatActive, 
-        setIsChatActive, 
-        messagedContent,
-        setMessagedContent,
-        message,
-        setMessage
-        )}
+    <ActionIcon onClick={() => messageInputEventHandler.sendMessage(isChatActive, messagedContent, message)}
         variant="filled" 
         radius="md" 
         size="lg" 

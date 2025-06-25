@@ -10,6 +10,7 @@ import classes from '../chat.module.css';
 
 export default function RegularChat() {
   const [isChatActive, setIsChatActive] = useState(false);
+  const [isTextFaded, setIsTextFaded] = useState(false); 
   const [messagedContent, setMessagedContent] = useState([]); 
   const ref = useRef(null); 
   const containerStyle = {
@@ -17,7 +18,8 @@ export default function RegularChat() {
     justifyContent: "center",
     flexDirection: "column"
   }
-  if (isChatActive) {
+  const hasTransitioned = isChatActive && isTextFaded; 
+  if (hasTransitioned) {
     containerStyle.justifyContent = "space-between";
   }
   return (
@@ -37,13 +39,14 @@ export default function RegularChat() {
             You&apos;re now chatting with Martin. Type<br></br>in something to start the conversation:
         </Title>
       </CSSTransition>
-      {isChatActive && (
+      {hasTransitioned && (
         <ChatScrollArea messagedContent={messagedContent} />
         )}
-        <MessageInput messagedContent={messagedContent}
+        <MessageInput setIsChatActive={setIsChatActive}
+          setIsTextFaded={setIsTextFaded}
           setMessagedContent={setMessagedContent}
+          messagedContent={messagedContent}
           isChatActive={isChatActive} 
-          setIsChatActive={setIsChatActive}
         />
     </PageContainer>
     )
