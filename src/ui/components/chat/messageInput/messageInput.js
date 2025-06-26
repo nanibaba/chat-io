@@ -9,8 +9,9 @@ export default function MessageInput({
     setIsChatActive,
     setIsTextFaded,
     setMessagedContent, 
+    isChatActive,
     messagedContent,
-    isChatActive
+    viewport
 }) {
     const [message, setMessage] = useState('');
     const messageInputEventHandler = new MessageInputEventHandler(
@@ -22,7 +23,8 @@ export default function MessageInput({
     const icon = <SendIcon message={message} 
         messageInputEventHandler={messageInputEventHandler}
         isChatActive={isChatActive}
-        messagedContent={messagedContent} />
+        messagedContent={messagedContent} 
+        viewport={viewport}/>
     return (
     <TextInput size="lg" 
         w="50rem"
@@ -38,7 +40,8 @@ export default function MessageInput({
             event.key, 
             isChatActive,
             messagedContent,
-            message
+            message,
+            viewport
         )} 
     />
     )

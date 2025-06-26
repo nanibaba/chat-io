@@ -4,15 +4,16 @@ import { useState, useRef } from 'react';
 import PageContainer from '@/ui/components/pageContainer.js';
 import { CSSTransition } from 'react-transition-group';
 import { Title } from '@mantine/core';
-import ChatScrollArea from '@/ui/components/chat/chatScrollArea.js';
-import MessageInput from '@/ui/components/chat/messageInput.js';
+import ChatScrollArea from '@/ui/components/chat/scrollArea/chatScrollArea.js';
+import MessageInput from '@/ui/components/chat/messageInput/messageInput.js';
 import classes from '../chat.module.css';
 
 export default function RegularChat() {
   const [isChatActive, setIsChatActive] = useState(false);
   const [isTextFaded, setIsTextFaded] = useState(false); 
   const [messagedContent, setMessagedContent] = useState([]); 
-  const ref = useRef(null); 
+  const titleRef = useRef(null); 
+  const viewport = useRef(null);
   const containerStyle = {
     alignItems: "center",
     justifyContent: "center",
@@ -29,10 +30,10 @@ export default function RegularChat() {
         exit: classes['fade-out-exit'],
         exitActive: classes['fade-out-exit-active']
       }}
-      nodeRef={ref}
+      nodeRef={titleRef}
       timeout={280}
       unmountOnExit>
-        <Title ref={ref}
+        <Title ref={titleRef}
           mb="lg" 
           order={2} 
           textWrap="wrap">
@@ -40,13 +41,15 @@ export default function RegularChat() {
         </Title>
       </CSSTransition>
       {hasTransitioned && (
-        <ChatScrollArea messagedContent={messagedContent} />
+        <ChatScrollArea messagedContent={messagedContent} 
+          viewportRef={viewport}/>
         )}
         <MessageInput setIsChatActive={setIsChatActive}
           setIsTextFaded={setIsTextFaded}
           setMessagedContent={setMessagedContent}
-          messagedContent={messagedContent}
           isChatActive={isChatActive} 
+          messagedContent={messagedContent}
+          viewport={viewport}
         />
     </PageContainer>
     )
