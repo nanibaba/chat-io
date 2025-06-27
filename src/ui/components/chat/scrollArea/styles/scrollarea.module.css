@@ -1,0 +1,14 @@
+.root {
+    width: 100%;
+}
+
+.viewport {
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    width: 50rem;
+    max-width: 65%;
+    min-width: fit-content;
+}

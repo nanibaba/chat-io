@@ -1,7 +1,9 @@
 'use client'
 
 import { useState, useRef } from 'react';
-import PageContainer from '@/ui/components/pageContainer.js';
+import OuterPageContainer from '@/ui/components/outerpageContainer.js';
+import Drawer from '@/ui/components/drawer.js';
+import InnerPageContainer from '@/ui/components/innerPageContainer.js';
 import { CSSTransition } from 'react-transition-group';
 import { Title } from '@mantine/core';
 import ChatScrollArea from '@/ui/components/chat/scrollArea/chatScrollArea.js';
@@ -14,43 +16,47 @@ export default function RegularChat() {
   const [messagedContent, setMessagedContent] = useState([]); 
   const titleRef = useRef(null); 
   const viewport = useRef(null);
-  const containerStyle = {
+  const innerPageContainerStyle = {
     alignItems: "center",
     justifyContent: "center",
-    flexDirection: "column"
+    flexDirection: "column",
+    flexGrow: 1
   }
   const hasTransitioned = isChatActive && isTextFaded; 
   if (hasTransitioned) {
-    containerStyle.justifyContent = "space-between";
+    innerPageContainerStyle.justifyContent = "space-between";
   }
   return (
-  <PageContainer style={containerStyle}>
-    <CSSTransition in={!isChatActive} 
-      classNames={{
-        exit: classes['fade-out-exit'],
-        exitActive: classes['fade-out-exit-active']
-      }}
-      nodeRef={titleRef}
-      timeout={280}
-      unmountOnExit>
-        <Title ref={titleRef}
-          mb="lg" 
-          order={2} 
-          textWrap="wrap">
-            You&apos;re now chatting with Martin. Type<br></br>in something to start the conversation:
-        </Title>
+  <OuterPageContainer>
+    <Drawer type="left" width={260}/>
+    <InnerPageContainer style={innerPageContainerStyle}>
+      <CSSTransition in={!isChatActive} 
+        classNames={{
+          exit: classes['fade-out-exit'],
+          exitActive: classes['fade-out-exit-active']
+        }}
+        nodeRef={titleRef}
+        timeout={280}
+        unmountOnExit>
+          <Title ref={titleRef}
+            mb="lg" 
+            order={2} 
+            textWrap="wrap">
+              You&apos;re now chatting with Martin. Type<br></br>in something to start the conversation:
+          </Title>
       </CSSTransition>
       {hasTransitioned && (
         <ChatScrollArea messagedContent={messagedContent} 
           viewportRef={viewport}/>
-        )}
-        <MessageInput setIsChatActive={setIsChatActive}
-          setIsTextFaded={setIsTextFaded}
-          setMessagedContent={setMessagedContent}
-          isChatActive={isChatActive} 
-          messagedContent={messagedContent}
-          viewport={viewport}
-        />
-    </PageContainer>
-    )
+      )}
+      <MessageInput setIsChatActive={setIsChatActive}
+        setIsTextFaded={setIsTextFaded}
+        setMessagedContent={setMessagedContent}
+        isChatActive={isChatActive} 
+        messagedContent={messagedContent}
+        viewport={viewport}
+      />
+    </InnerPageContainer>
+  </OuterPageContainer>
+  )
 }
