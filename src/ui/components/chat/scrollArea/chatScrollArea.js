@@ -1,13 +1,23 @@
+import MessageBox from "./messageBox.js";
 import { ScrollArea } from "@mantine/core"; 
 import classes from "./styles/scrollarea.module.css";
 
 export default function ChatScrollArea({messagedContent, viewportRef}) { 
     const content = messagedContent
-        .map((message, index) => <p key={index}>{message}</p>);
+        .map((message, index) => {
+            const marginBottom = index !== 
+                messagedContent.length - 1 ? 
+                "sm": 0; 
+            return (
+            <MessageBox key={index} 
+                right={true}
+                marginBottom={marginBottom}
+                message={message}/>
+            )
+        });
     return (
     <ScrollArea classNames={{
             root: classes.root,
-            viewport: classes.viewport,
             content: classes.content
         }}
         viewportRef={viewportRef}
