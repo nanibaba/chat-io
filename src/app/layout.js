@@ -4,7 +4,6 @@ import {
   ColorSchemeScript, 
   mantineHtmlProps
 } from '@mantine/core';
-import { SocketProvider } from '@/websocket/socketProvider.js';
 import ThemeProvider from "@/ui/components/themeProvider.js";
 
 export const metadata = {
@@ -19,11 +18,9 @@ export default function RootLayout({ children }) {
         <ColorSchemeScript defaultColorScheme="auto"/>
       </head>
       <body>
-        <SocketProvider>
-          <ThemeProvider>
-            {children}
-          </ThemeProvider>
-        </SocketProvider>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

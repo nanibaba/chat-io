@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react';
+import { SocketProvider } from '@/websocket/socketProvider.js';
 import OuterPageContainer from '@/ui/components/outerpageContainer.js';
 import Drawer from '@/ui/components/drawer.js';
 import InnerPageContainer from '@/ui/components/innerPageContainer.js';
@@ -27,36 +28,38 @@ export default function RegularChat() {
     innerPageContainerStyle.justifyContent = "space-between";
   }
   return (
-  <OuterPageContainer>
-    <Drawer type="left" width={260}/>
-    <InnerPageContainer style={innerPageContainerStyle}>
-      <CSSTransition in={!isChatActive} 
-        classNames={{
-          exit: classes['fade-out-exit'],
-          exitActive: classes['fade-out-exit-active']
-        }}
-        nodeRef={titleRef}
-        timeout={280}
-        unmountOnExit>
-          <Title ref={titleRef}
-            mb="lg" 
-            order={2} 
-            textWrap="wrap">
-              You&apos;re now chatting with Martin. Type<br></br>in something to start the conversation:
-          </Title>
-      </CSSTransition>
-      {hasTransitioned && (
-        <ChatScrollArea messagedContent={messagedContent} 
-          viewportRef={viewport}/>
-      )}
-      <MessageInput setIsChatActive={setIsChatActive}
-        setIsTextFaded={setIsTextFaded}
-        setMessagedContent={setMessagedContent}
-        isChatActive={isChatActive} 
-        messagedContent={messagedContent}
-        viewport={viewport}
-      />
-    </InnerPageContainer>
-  </OuterPageContainer>
+  <SocketProvider>
+    <OuterPageContainer>
+      <Drawer type="left" width={260}/>
+      <InnerPageContainer style={innerPageContainerStyle}>
+        <CSSTransition in={!isChatActive} 
+          classNames={{
+            exit: classes['fade-out-exit'],
+            exitActive: classes['fade-out-exit-active']
+          }}
+          nodeRef={titleRef}
+          timeout={280}
+          unmountOnExit>
+            <Title ref={titleRef}
+              mb="lg" 
+              order={2} 
+              textWrap="wrap">
+                You&apos;re now chatting with Martin. Type<br></br>in something to start the conversation:
+            </Title>
+        </CSSTransition>
+        {hasTransitioned && (
+          <ChatScrollArea messagedContent={messagedContent} 
+            viewportRef={viewport}/>
+        )}
+        <MessageInput setIsChatActive={setIsChatActive}
+          setIsTextFaded={setIsTextFaded}
+          setMessagedContent={setMessagedContent}
+          isChatActive={isChatActive} 
+          messagedContent={messagedContent}
+          viewport={viewport}
+        />
+      </InnerPageContainer>
+    </OuterPageContainer>
+  </SocketProvider>
   )
 }
