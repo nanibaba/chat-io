@@ -10,7 +10,7 @@ export default function SendIcon({
 }) {
     const disabled = message === '' || message === null
     return (
-    <ActionIcon onClick={() => messageInputEventHandler.sendMessage(
+    <ActionIcon onClick={() => messageInputEventHandler.sendSocketMessage(
         isChatActive, 
         messagedContent, 
         message,

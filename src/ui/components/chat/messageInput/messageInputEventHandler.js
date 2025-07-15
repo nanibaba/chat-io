@@ -6,19 +6,22 @@ class MessageInputEventHandler {
     #setIsTextFaded;
     #setMessagedContent;
     #setMessage; 
+    #socket; 
 
     constructor(
         setIsChatActive,
         setIsTextFaded,
         setMessagedContent,
-        setMessage
+        setMessage,
+        socket
     ) {
         this.#setIsChatActive = setIsChatActive; 
         this.#setIsTextFaded = setIsTextFaded;
         this.#setMessagedContent = setMessagedContent;
         this.#setMessage = setMessage; 
+        this.#socket = socket;
     }
-
+    
     sendMessage(
         isChatActive, 
         messagedContent, 
@@ -47,6 +50,23 @@ class MessageInputEventHandler {
         }
     }
 
+    sendSocketMessage(
+        isChatActive, 
+        messagedContent, 
+        message,
+        viewport
+    ) {
+        // 1. Emit socket event
+        this.#socket.emit('sendMessage', message);
+        // 2. Send message 
+        this.sendMessage(
+            isChatActive,
+            messagedContent,
+            message,
+            viewport
+        );
+    }
+
     activateKeyboardEvent(
         key, 
         isChatActive, 
@@ -57,7 +77,7 @@ class MessageInputEventHandler {
         const isMessageSendEvent = key === "Enter" && 
             message !== '' && message !== null;
             if (isMessageSendEvent) {
-                this.sendMessage(
+                this.sendSocketMessage(
                     isChatActive, 
                     messagedContent, 
                     message,

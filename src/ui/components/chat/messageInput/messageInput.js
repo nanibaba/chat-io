@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useSocket } from '@/websocket/socketProvider.js';
 import SendIcon from './sendIcon.js';
 import { TextInput } from '@mantine/core';
 import MessageInputEventHandler from './messageInputEventHandler.js';
@@ -14,12 +15,38 @@ export default function MessageInput({
     viewport
 }) {
     const [message, setMessage] = useState('');
-    const messageInputEventHandler = new MessageInputEventHandler(
+    const socket = useSocket();
+    const messageInputEventHandler = useMemo(() => {
+        return new MessageInputEventHandler(
         setIsChatActive,
         setIsTextFaded,
         setMessagedContent,
-        setMessage
+        setMessage,
+        socket
     );
+    }, [setIsChatActive, setIsTextFaded, setMessagedContent, 
+        setMessage, socket
+    ]); 
+    useEffect(() => {
+        if (!socket) return;
+        socket.on("sendMessage", message => {
+            messageInputEventHandler.sendMessage(
+                isChatActive,
+                messagedContent,
+                message,
+                viewport
+            )
+        });
+        return () => {
+		    socket.off("sendMessage");
+	    };
+    }, [
+        socket,
+        messageInputEventHandler,
+        isChatActive,
+        messagedContent,
+        viewport
+    ]);
     const icon = <SendIcon message={message} 
         messageInputEventHandler={messageInputEventHandler}
         isChatActive={isChatActive}
