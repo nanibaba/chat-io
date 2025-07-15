@@ -5,27 +5,27 @@ class MessageInputEventHandler {
     #setIsChatActive; 
     #setIsTextFaded;
     #setMessagedContent;
-    #setMessage; 
+    #setMessageObject; 
     #socket; 
 
     constructor(
         setIsChatActive,
         setIsTextFaded,
         setMessagedContent,
-        setMessage,
+        setMessageObject,
         socket
     ) {
         this.#setIsChatActive = setIsChatActive; 
         this.#setIsTextFaded = setIsTextFaded;
         this.#setMessagedContent = setMessagedContent;
-        this.#setMessage = setMessage; 
+        this.#setMessageObject = setMessageObject; 
         this.#socket = socket;
     }
     
     sendMessage(
         isChatActive, 
         messagedContent, 
-        message,
+        messageObject,
         viewport
     ) {
         // 1. Set chat to active state
@@ -39,10 +39,13 @@ class MessageInputEventHandler {
             // 2. Add sent message to chat scroll
             this.#setMessagedContent([
                 ...messagedContent,
-                message
+                messageObject
             ]); 
             // 3. Clear message input
-            this.#setMessage('');
+            this.#setMessageObject({
+                ...messageObject,
+                message: ''
+            });
         });
         // 4. Scroll to last message 
         if (viewport && viewport.current) {
@@ -53,16 +56,17 @@ class MessageInputEventHandler {
     sendSocketMessage(
         isChatActive, 
         messagedContent, 
-        message,
+        messageObject,
         viewport
     ) {
+        console.log(messageObject); 
         // 1. Emit socket event
-        this.#socket.emit('sendMessage', message);
+        this.#socket.emit('sendMessage', messageObject.message);
         // 2. Send message 
         this.sendMessage(
             isChatActive,
             messagedContent,
-            message,
+            messageObject,
             viewport
         );
     }
@@ -71,16 +75,17 @@ class MessageInputEventHandler {
         key, 
         isChatActive, 
         messagedContent, 
-        message,
+        messageObject,
         viewport
     ) {
+        const message = messageObject.message;
         const isMessageSendEvent = key === "Enter" && 
             message !== '' && message !== null;
             if (isMessageSendEvent) {
                 this.sendSocketMessage(
                     isChatActive, 
                     messagedContent, 
-                    message,
+                    messageObject,
                     viewport
                 ); 
             }
