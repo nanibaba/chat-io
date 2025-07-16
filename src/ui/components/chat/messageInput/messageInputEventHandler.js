@@ -7,19 +7,22 @@ class MessageInputEventHandler {
     #setMessagedContent;
     #setMessage; 
     #socket; 
+    #setSender; 
 
     constructor(
         setIsChatActive,
         setIsTextFaded,
         setMessagedContent,
         setMessage,
-        socket
+        socket,
+        setSender
     ) {
         this.#setIsChatActive = setIsChatActive; 
         this.#setIsTextFaded = setIsTextFaded;
         this.#setMessagedContent = setMessagedContent;
         this.#setMessage = setMessage; 
         this.#socket = socket;
+        this.#setSender = setSender
     }
     
     sendMessage(
@@ -58,7 +61,9 @@ class MessageInputEventHandler {
     ) {
         // 1. Emit socket event
         this.#socket.emit('sendMessage', message);
-        // 2. Send message 
+        // 2. Set sender to current user
+        this.#setSender("me"); 
+        // 3. Send message 
         this.sendMessage(
             isChatActive,
             messagedContent,

@@ -10,6 +10,7 @@ export default function MessageInput({
     setIsChatActive,
     setIsTextFaded,
     setMessagedContent, 
+    setSender,
     isChatActive,
     messagedContent,
     viewport
@@ -22,14 +23,17 @@ export default function MessageInput({
         setIsTextFaded,
         setMessagedContent,
         setMessage,
-        socket
+        socket,
+        setSender
     );
-    }, [setIsChatActive, setIsTextFaded, setMessagedContent, 
-        setMessage, socket
+    }, [
+        setIsChatActive, setIsTextFaded, 
+        setMessagedContent, socket, setSender
     ]); 
     useEffect(() => {
         if (!socket) return;
         socket.on("sendMessage", message => {
+            setSender("other"); 
             messageInputEventHandler.sendMessage(
                 isChatActive,
                 messagedContent,
@@ -42,6 +46,7 @@ export default function MessageInput({
 	    };
     }, [
         socket,
+        setSender,
         messageInputEventHandler,
         isChatActive,
         messagedContent,
