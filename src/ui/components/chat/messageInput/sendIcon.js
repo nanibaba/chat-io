@@ -2,19 +2,18 @@ import { ActionIcon } from '@mantine/core';
 import { IconSend2 } from '@tabler/icons-react';
 
 export default function SendIcon({
-    messageObject, 
+    message, 
     messageInputEventHandler, 
     isChatActive, 
     messagedContent,
     viewport
 }) {
-    const message = messageObject.message; 
     const disabled = message === '' || message === null
     return (
     <ActionIcon onClick={() => messageInputEventHandler.sendSocketMessage(
         isChatActive, 
         messagedContent, 
-        messageObject,
+        message,
         viewport
         )}
         variant="filled" 

@@ -14,34 +14,26 @@ export default function MessageInput({
     messagedContent,
     viewport
 }) {
-    const [messageObject, setMessageObject] = useState({
-        message: "",
-        sender: "me"
-    });
+    const [message, setMessage] = useState('');
     const socket = useSocket();
     const messageInputEventHandler = useMemo(() => {
         return new MessageInputEventHandler(
         setIsChatActive,
         setIsTextFaded,
         setMessagedContent,
-        setMessageObject,
+        setMessage,
         socket
     );
     }, [setIsChatActive, setIsTextFaded, setMessagedContent, 
-        setMessageObject, socket
+        setMessage, socket
     ]); 
     useEffect(() => {
         if (!socket) return;
         socket.on("sendMessage", message => {
-            console.log(message);
-            setMessageObject({
-                message,
-                sender: "other"
-            })
             messageInputEventHandler.sendMessage(
                 isChatActive,
                 messagedContent,
-                messageObject,
+                message,
                 viewport
             )
         });
@@ -53,10 +45,9 @@ export default function MessageInput({
         messageInputEventHandler,
         isChatActive,
         messagedContent,
-        messageObject,
         viewport
     ]);
-    const icon = <SendIcon messageObject={messageObject} 
+    const icon = <SendIcon message={message} 
         messageInputEventHandler={messageInputEventHandler}
         isChatActive={isChatActive}
         messagedContent={messagedContent} 
@@ -70,16 +61,13 @@ export default function MessageInput({
         placeholder="Message..."
         aria-label="Message Input"
         rightSection={icon}
-        value={messageObject.message}
-        onChange={(event) => setMessageObject({
-            ...messageObject,
-            message: event.currentTarget.value
-        })}
+        value={message}
+        onChange={(event) => setMessage(event.currentTarget.value)}
         onKeyDown={(event) => messageInputEventHandler.activateKeyboardEvent(
             event.key, 
             isChatActive,
             messagedContent,
-            messageObject,
+            message,
             viewport
         )} 
     />

@@ -4,16 +4,15 @@ import classes from "./styles/scrollarea.module.css";
 
 export default function ChatScrollArea({messagedContent, viewportRef}) { 
     const content = messagedContent
-        .map((messageObject, index) => {
+        .map((message, index) => {
             const marginBottom = index !== 
                 messagedContent.length - 1 ? 
                 "sm": 0; 
-            const right = messageObject.sender === 'me'; 
             return (
             <MessageBox key={index} 
-                right={right}
+                right={true}
                 marginBottom={marginBottom}
-                message={messageObject.message}/>
+                message={message}/>
             )
         });
     return (
