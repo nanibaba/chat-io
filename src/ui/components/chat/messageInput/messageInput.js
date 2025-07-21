@@ -2,15 +2,14 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { useSocket } from '@/websocket/socketProvider.js';
+import MessageInputEventHandler from './messageInputEventHandler.js';
 import SendIcon from './sendIcon.js';
 import { TextInput } from '@mantine/core';
-import MessageInputEventHandler from './messageInputEventHandler.js';
 
 export default function MessageInput({
     setIsChatActive,
     setIsTextFaded,
     setMessagedContent, 
-    setSender,
     isChatActive,
     messagedContent,
     viewport
@@ -23,30 +22,31 @@ export default function MessageInput({
         setIsTextFaded,
         setMessagedContent,
         setMessage,
-        socket,
-        setSender
+        socket
     );
     }, [
         setIsChatActive, setIsTextFaded, 
-        setMessagedContent, socket, setSender
+        setMessagedContent, socket
     ]); 
     useEffect(() => {
         if (!socket) return;
         socket.on("sendMessage", message => {
-            setSender("other"); 
+            const messageEntity = {
+                message,
+                sender: "other"
+            };
             messageInputEventHandler.sendMessage(
                 isChatActive,
                 messagedContent,
-                message,
+                messageEntity,
                 viewport
-            )
+            );
         });
         return () => {
 		    socket.off("sendMessage");
 	    };
     }, [
         socket,
-        setSender,
         messageInputEventHandler,
         isChatActive,
         messagedContent,

@@ -9,11 +9,14 @@ export default function SendIcon({
     viewport
 }) {
     const disabled = message === '' || message === null
+    const messageEntity = {
+        message
+    }; 
     return (
     <ActionIcon onClick={() => messageInputEventHandler.sendSocketMessage(
         isChatActive, 
         messagedContent, 
-        message,
+        messageEntity,
         viewport
         )}
         variant="filled" 

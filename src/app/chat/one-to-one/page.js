@@ -13,8 +13,7 @@ import classes from '../chat.module.css';
 
 export default function RegularChat() {
   const [isChatActive, setIsChatActive] = useState(false);
-  const [isTextFaded, setIsTextFaded] = useState(false); 
-  const [sender, setSender] = useState(''); 
+  const [isTextFaded, setIsTextFaded] = useState(false);
   const [messagedContent, setMessagedContent] = useState([]); 
   const titleRef = useRef(null); 
   const viewport = useRef(null);
@@ -50,13 +49,11 @@ export default function RegularChat() {
         </CSSTransition>
         {hasTransitioned && (
           <ChatScrollArea messagedContent={messagedContent} 
-            sender={sender}
             viewportRef={viewport}/>
         )}
         <MessageInput setIsChatActive={setIsChatActive}
           setIsTextFaded={setIsTextFaded}
           setMessagedContent={setMessagedContent}
-          setSender={setSender}
           isChatActive={isChatActive} 
           messagedContent={messagedContent}
           viewport={viewport}
