@@ -1,6 +1,7 @@
 import express from 'express';
 import { createServer } from 'node:http';
 import { Server } from "socket.io";
+import axios from 'axios';
 import socketHandler from './sockets/index.js';
 
 const app = express();
@@ -14,7 +15,13 @@ const io = new Server(server, {
 });
 
 app.get('/', (req, res) => {
-    res.send({"status": 200});
+    axios.get("http://localhost:8080")
+    .then(response => {
+        res.send({status: 200, data: response.data});
+    })
+    .catch(error => {
+        res.send({status: 500, error: error.code}); 
+    });
 });
 
 io.on('connection', (socket) => {
